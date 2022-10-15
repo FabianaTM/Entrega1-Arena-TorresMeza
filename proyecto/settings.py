@@ -55,7 +55,7 @@ ROOT_URLCONF = "proyecto.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [r'C:\Users\fabit\Documents\CoderPython\ProyectoFinal\templates','r'],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
