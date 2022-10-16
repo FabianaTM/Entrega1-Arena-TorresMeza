@@ -1,4 +1,5 @@
 ## Proyecto Coder Python
+### Pasos a seguir para desplegar el proyecto
 1. Clonar repositorio
     `git clone https://github.com/FabianaTM/Entrega1-Arena-TorresMeza.git`
 2. Crear entorno virtual
