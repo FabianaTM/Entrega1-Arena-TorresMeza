@@ -1,8 +1,11 @@
+from random import random
+import re
 from xml.dom.minidom import Document
 from django.http import HttpResponse
 from django.template import Context, Template
 from django.template import loader
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+import random
 
 from app1.models import Persona
 
@@ -12,7 +15,7 @@ def hola(request):
 
 def mi_template(request):
 
-    cargar_archivo= open(r'C:\Users\fabit\Documents\CoderPython\ProyectoFinal\app1\templates\template.html' ,'r')
+    cargar_archivo= open(r'C:\Users\fabit\Documents\CoderPython\ProyectoFinal\app1\templates\app1\template.html' ,'r')
 
     template= Template(cargar_archivo.read())
     cargar_archivo.close()
@@ -23,17 +26,18 @@ def mi_template(request):
 
     return HttpResponse(template_renderizado)
 
-def crear_persona(request, nombre, apellido, edad):
+def crear_persona(request):
 
-    persona= Persona(nombre=nombre, apellido=apellido, edad=edad)
-    persona.save()
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
 
-    #template= loader.get_template('crear_persona.html')
-    #template_renderizado= template.render({'persona':persona})
+        persona= Persona(nombre=nombre, apellido=apellido, edad=random.randrange(1,99))
+        persona.save()
 
-    #return HttpResponse(template_renderizado)
+        return redirect('Ver')
 
-    return render(request,'app1/crear_persona.html',{'persona':persona})
+    return render(request,'app1/crear_persona.html',{})
 
 def ver_persona(request):
 

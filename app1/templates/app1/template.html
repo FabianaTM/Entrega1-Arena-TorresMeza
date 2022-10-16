@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'app1/base.html' %}
+
+{%block title_pagina %}
+<title>Sobre nosotras</title>
+{% endblock title_pagina %}
+
+{% block contenido %}
+
+<a class="navbar-brand" href={% url 'Inicio' %}>Inicio</a>
+
+<h2>Sobre nosotras</h2>
+{% endblock contenido %}
