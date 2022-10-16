@@ -7,6 +7,7 @@ from django.template import loader
 from django.shortcuts import render,redirect
 import random
 from app1.forms import BusquedaPersonaFormulario, PersonaFormulario
+import os
 
 from app1.models import Persona
 
@@ -15,8 +16,7 @@ def hola(request):
 
 
 def mi_template(request):
-
-    cargar_archivo= open(r'C:\Users\fabit\Documents\CoderPython\ProyectoFinal\app1\templates\app1\template.html' ,'r')
+    cargar_archivo= open(r'.\app1\templates\app1\template.html' ,'r')
 
     template= Template(cargar_archivo.read())
     cargar_archivo.close()
