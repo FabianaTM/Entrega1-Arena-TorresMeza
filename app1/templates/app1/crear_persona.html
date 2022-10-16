@@ -7,14 +7,9 @@
 {% block contenido %}
 <form action={% url 'Crear'%} method="POST">
     {% csrf_token %}
-    <p>
-        <label for="nombre"></label>
-        <input type="text" name="nombre" placeholder="Ingrese nombre" autocomplete="off">
-    </p>
-    <p>
-        <label for="apellido"></label>
-        <input type="text" name="apellido" placeholder="Ingrese apellido" autocomplete="off">
-    </p>
+    <table>
+        {{formulario}}
+    </table>
     <button>Crear</button>
 </form>
 {% endblock contenido %}

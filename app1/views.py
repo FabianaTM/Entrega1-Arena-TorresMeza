@@ -6,6 +6,7 @@ from django.template import Context, Template
 from django.template import loader
 from django.shortcuts import render,redirect
 import random
+from app1.forms import BusquedaPersonaFormulario, PersonaFormulario
 
 from app1.models import Persona
 
@@ -29,26 +30,40 @@ def mi_template(request):
 def crear_persona(request):
 
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        apellido = request.POST.get('apellido')
 
-        persona= Persona(nombre=nombre, apellido=apellido, edad=random.randrange(1,99))
-        persona.save()
+        formulario = PersonaFormulario(request.POST)
+        
+        if formulario.is_valid():
 
-        return redirect('Ver')
+            data= formulario.cleaned_data
 
-    return render(request,'app1/crear_persona.html',{})
+            nombre = data['nombre']
+            apellido = data['apellido']
+            edad = data['edad']
+
+            persona= Persona(nombre=nombre, apellido=apellido, edad=edad)
+            persona.save()
+
+            return redirect('Ver')
+    
+    formulario = PersonaFormulario()
+
+    return render(request,'app1/crear_persona.html',{'formulario': formulario})
 
 def ver_persona(request):
 
-    personas= Persona.objects.all()
+    nombre =request.GET.get('nombre')
+    print(nombre)
 
-    #template= loader.get_template('ver_persona.html')
-    #template_renderizado= template.render({'personas':personas})
+    if nombre:
+        personas = Persona.objects.filter(nombre__icontains=nombre)
+        print(personas)
+    else:
+        personas = Persona.objects.all
 
-    #return HttpResponse(template_renderizado)
+    formulario= BusquedaPersonaFormulario()
 
-    return render(request,'app1/ver_persona.html',{'personas':personas})
+    return render(request,'app1/ver_persona.html',{'personas':personas, 'formulario':formulario})
 
 
 def index(request):

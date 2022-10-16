@@ -5,12 +5,30 @@
 {% endblock title_pagina %}
 
 {% block contenido %}
-<a class="navbar-brand" href={% url 'Inicio' %}>Inicio</a>
+<a class="navbar-brand" href={% url 'Crear' %}>Crear</a>
+<p>Listado de personas: </p>
 
-{% for persona in personas%}
-<li>
- {{persona.nombre}} {{persona.apellido}} {{persona.edad}}
-</li>
-{% endfor %}
+<form action={% url 'Ver'%} method="GET">
+
+    {{formulario}}
+
+    <button>Buscar</button>
+</form>
+<p>
+    {% if personas %}
+
+        {% for persona in personas%}
+        <li>
+        {{persona.nombre}} {{persona.apellido}} {{persona.edad}}
+        </li>
+        {% endfor %}
+
+    {% else%}
+    
+        <p> No se encontraron resultados</p>
+
+    {% endif%}
+
+</p>
 {% endblock contenido %}
 
