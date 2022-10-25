@@ -45,6 +45,9 @@ def crear_persona(request):
             persona.save()
 
             return redirect('Ver')
+        
+        else:
+             return render(request,'app1/crear_persona.html',{'formulario': formulario})
     
     formulario = PersonaFormulario()
 
@@ -69,3 +72,26 @@ def ver_persona(request):
 def index(request):
 
     return render(request, 'app1/index.html')
+
+def editar_persona (request,id):
+    persona= Persona.objects.get(id=id)
+   if request.method == 'POST':
+
+        formulario = PersonaFormulario(request.POST)
+        
+        if formulario.is_valid():
+
+            data= formulario.cleaned_data
+
+            persona.nombre= data['nombre']
+            persona.apellido= data['apellido']
+            persona.edad=data['edad']
+
+            persona.save()
+
+            return redirect('Ver')
+        
+    
+    formulario = PersonaFormulario(initial={'nombre':persona.nombre,'apellido':persona.apellido,'edad':persona.edad})
+
+    return render(request,'app1/editar_persona.html',{'formulario': formulario}) 
