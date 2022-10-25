@@ -75,7 +75,7 @@ def index(request):
 
 def editar_persona (request,id):
     persona= Persona.objects.get(id=id)
-   if request.method == 'POST':
+    if request.method == 'POST':
 
         formulario = PersonaFormulario(request.POST)
         
