@@ -18,9 +18,13 @@
     {% if personas %}
 
         {% for persona in personas%}
+
         <li>
-        {{persona.nombre}} {{persona.apellido}} {{persona.edad}}
-        </li>
+        {{persona}} 
+        <a class="navbar-brand" href={% url 'editar_persona' persona.id %}>Editar</a>
+        <a class="navbar-brand" href={% url 'eliminar_persona' persona.id %}>Eliminar</a>
+        <li>
+            
         {% endfor %}
 
     {% else%}
