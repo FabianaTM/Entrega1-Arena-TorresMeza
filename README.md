@@ -14,7 +14,7 @@
     `python manage.py runserver`
 7. Navegar por distintas pestañas
     `http://127.0.0.1:8000`
-8. Crear personas desde pestaña Crear
-    `http://127.0.0.1:8000/crear_persona`
-9. Buscar personas desde pestaña Ver
-    `http://127.0.0.1:8000/ver_persona`
+8. Crear mascota desde pestaña Crear
+    `http://127.0.0.1:8000/crear_mascota`
+9. Buscar mascotas desde pestaña Ver
+    `http://127.0.0.1:8000/ver_mascota`

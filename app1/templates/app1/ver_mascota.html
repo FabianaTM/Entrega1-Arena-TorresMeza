@@ -6,7 +6,7 @@
 
 {% block contenido %}
 <a class="navbar-brand" href={% url 'Crear' %}>Crear</a>
-<p>Listado de personas: </p>
+<p>Listado de mascotas: </p>
 
 <form action={% url 'Ver'%} method="GET">
 
@@ -15,14 +15,14 @@
     <button>Buscar</button>
 </form>
 <p>
-    {% if personas %}
+    {% if mascotas %}
 
-        {% for persona in personas%}
+        {% for mascota in mascotas%}
 
         <li>
-        {{persona}} 
-        <a class="navbar-brand" href={% url 'editar_persona' persona.id %}>Editar</a>
-        <a class="navbar-brand" href={% url 'eliminar_persona' persona.id %}>Eliminar</a>
+        {{mascota}} 
+        {% comment %} <a class="navbar-brand" href={% url 'editar_mascota' mascota.id %}>Editar</a>
+        <a class="navbar-brand" href={% url 'eliminar_mascota' mascota.id %}>Eliminar</a> {% endcomment %}
         <li>
             
         {% endfor %}

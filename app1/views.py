@@ -6,14 +6,10 @@ from django.template import Context, Template
 from django.template import loader
 from django.shortcuts import render,redirect
 import random
-from app1.forms import BusquedaPersonaFormulario, PersonaFormulario
+from app1.forms import BusquedaMascotaFormulario, MascotaFormulario
 import os
 
-from app1.models import Persona
-
-def hola(request):
-    return HttpResponse('Hola')
-
+from app1.models import Mascota
 
 def mi_template(request):
     cargar_archivo= open(r'.\app1\templates\app1\template.html' ,'r')
@@ -27,71 +23,72 @@ def mi_template(request):
 
     return HttpResponse(template_renderizado)
 
-def crear_persona(request):
+def crear_mascota(request):
 
     if request.method == 'POST':
 
-        formulario = PersonaFormulario(request.POST)
+        formulario = MascotaFormulario(request.POST)
         
         if formulario.is_valid():
 
             data= formulario.cleaned_data
 
             nombre = data['nombre']
-            apellido = data['apellido']
+            tipo = data['tipo']
             edad = data['edad']
 
-            persona= Persona(nombre=nombre, apellido=apellido, edad=edad)
-            persona.save()
+            mascota= Mascota(nombre=nombre, tipo=tipo, edad=edad)
+            mascota.save()
 
             return redirect('Ver')
         
         else:
-             return render(request,'app1/crear_persona.html',{'formulario': formulario})
+             return render(request,'app1/crear_mascota.html',{'formulario': formulario})
     
-    formulario = PersonaFormulario()
+    formulario = MascotaFormulario()
 
-    return render(request,'app1/crear_persona.html',{'formulario': formulario})
+    return render(request,'app1/crear_mascota.html',{'formulario': formulario})
 
-def ver_persona(request):
+def ver_mascota(request):
 
     nombre =request.GET.get('nombre')
     print(nombre)
 
     if nombre:
-        personas = Persona.objects.filter(nombre__icontains=nombre)
-        print(personas)
+        mascotas = Mascota.objects.filter(nombre__icontains=nombre)
+        print(mascotas)
     else:
-        personas = Persona.objects.all
+        mascotas = Mascota.objects.all
+    print(mascotas)
+    print('///////////////////////////////////////////////')
+    formulario= BusquedaMascotaFormulario()
 
-    formulario= BusquedaPersonaFormulario()
-
-    return render(request,'app1/ver_persona.html',{'personas':personas, 'formulario':formulario})
+    return render(request,'app1/ver_mascota.html',{'mascotas':mascotas, 'formulario':formulario})
 
 
 def index(request):
 
     return render(request, 'app1/index.html')
 
-def editar_persona (request,id):
-    persona= Persona.objects.get(id=id)
+def editar_mascota (request,id):
+    mascota= Mascota.objects.get(id=id)
     if request.method == 'POST':
 
-        formulario = PersonaFormulario(request.POST)
+        formulario = MascotaFormulario(request.POST)
         
         if formulario.is_valid():
 
             data= formulario.cleaned_data
 
-            persona.nombre= data['nombre']
-            persona.apellido= data['apellido']
-            persona.edad=data['edad']
+            mascota.nombre= data['nombre']
+            mascota.tipo= data['tipo']
+            mascota.edad=data['edad']
 
-            persona.save()
+            mascota.save()
 
             return redirect('Ver')
         
     
-    formulario = PersonaFormulario(initial={'nombre':persona.nombre,'apellido':persona.apellido,'edad':persona.edad})
+    formulario = MascotaFormulario(initial={'nombre':mascota.nombre,'tipo':mascota.tipo,'edad':mascota.edad})
 
-    return render(request,'app1/editar_persona.html',{'formulario': formulario}) 
+    return render(request,'app1/editar_mascota.html',{'formulario': formulario}) 
