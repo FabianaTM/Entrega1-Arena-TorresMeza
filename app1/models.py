@@ -10,8 +10,8 @@ class Mascota(models.Model):
     nombre= models.CharField(max_length=30)
     tipo=models.CharField(max_length=30)
     edad=models.IntegerField()
-    fecha_publicacion=models.DateTimeField(default= datetime.now())
+    #fecha_publicacion=models.DateTimeField()
 
     def __str__(self):
-        return f'Nombre:{self.nombre} - Tipo:{self.tipo}'
+        return f'Nombre: {self.nombre} - Tipo:{self.tipo}'
     

@@ -1,3 +1,4 @@
+from datetime import datetime
 from random import random
 import re
 from xml.dom.minidom import Document
@@ -36,6 +37,7 @@ def crear_mascota(request):
             nombre = data['nombre']
             tipo = data['tipo']
             edad = data['edad']
+            
 
             mascota= Mascota(nombre=nombre, tipo=tipo, edad=edad)
             mascota.save()
@@ -52,15 +54,12 @@ def crear_mascota(request):
 def ver_mascota(request):
 
     nombre =request.GET.get('nombre')
-    print(nombre)
+    #print(nombre)
 
     if nombre:
         mascotas = Mascota.objects.filter(nombre__icontains=nombre)
-        print(mascotas)
     else:
-        mascotas = Mascota.objects.all
-    print(mascotas)
-    print('///////////////////////////////////////////////')
+        mascotas = Mascota.objects.all()
     formulario= BusquedaMascotaFormulario()
 
     return render(request,'app1/ver_mascota.html',{'mascotas':mascotas, 'formulario':formulario})
@@ -73,7 +72,7 @@ def index(request):
 def editar_mascota (request,id):
     mascota= Mascota.objects.get(id=id)
     if request.method == 'POST':
-
+        
         formulario = MascotaFormulario(request.POST)
         
         if formulario.is_valid():
@@ -91,4 +90,10 @@ def editar_mascota (request,id):
     
     formulario = MascotaFormulario(initial={'nombre':mascota.nombre,'tipo':mascota.tipo,'edad':mascota.edad})
 
-    return render(request,'app1/editar_mascota.html',{'formulario': formulario}) 
+    return render(request,'app1/editar_mascota.html',{'formulario': formulario, 'mascota': mascota})
+
+
+def eliminar_mascota (request,id):
+    mascota= Mascota.objects.get(id=id)
+    mascota.delete()
+    return redirect ('Ver')

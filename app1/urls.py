@@ -6,6 +6,6 @@ urlpatterns = [
     path('mi_template/',views.mi_template, name='Sobre nosotras'),
     path('ver_mascota/', views.ver_mascota,name='Ver'),
     path('crear_mascota/',views.crear_mascota,name='Crear'),
-    path('editar_mascota/',views.editar_mascota,name='Editar')
-    #path('elimiar_mascota/',views.eliminar_mascota,name='Eliminar')
+    path('editar_mascota/<int:id>',views.editar_mascota,name='Editar'),
+    path('elimiar_mascota/<int:id>',views.eliminar_mascota,name='Eliminar')
 ]
