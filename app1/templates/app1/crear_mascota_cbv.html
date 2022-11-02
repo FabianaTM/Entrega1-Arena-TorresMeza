@@ -1,0 +1,15 @@
+{% extends 'app1/base.html' %}
+
+{%block title_pagina %}
+<title>Crear mascota</title>
+{% endblock title_pagina %}
+
+{% block contenido %}
+<form action={% url 'Crear'%} method="POST">
+    {% csrf_token %}
+    <table>
+        {{form}}
+    </table>
+    <button>Crear</button>
+</form>
+{% endblock contenido %}
