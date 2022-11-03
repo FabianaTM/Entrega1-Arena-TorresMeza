@@ -27,11 +27,17 @@
                 <a class="navbar-brand" href={% url 'Sobre nosotras' %}>Sobre nosotras</a>
                 <a class="navbar-brand" href={% url 'Crear' %}>Crear</a>
                 <a class="navbar-brand" href={% url 'Ver' %}>Ver</a>
+                
+                
 
-                {% if request.user.is_authenticated %} 
-                  <a class="navbar-brand" href={% url 'logout' %}>Cerrar sesion</a>
+                {% if request.user.is_authenticated %}
+                    <a class="navbar-brand" href='#'>{{request.user.username}}</a>
+                    <a class="navbar-brand" href={% url 'logout' %}>Cerrar Sesion</a> 
+                  {% comment %}<a class="navbar-brand" href={% url 'logout' %}>Cerrar sesion</a>{% endcomment %}
                
                 {% else %}
+                    <a class="navbar-brand" href={% url 'login' %}>Iniciar Sesion</a>
+                    <a class="navbar-brand" href={% url 'Registrar' %}>Registrarse</a>
                    {% comment %} <a class="navbar-brand" href={% url 'login' %}>Iniciar sesion</a> {% endcomment %}
                    
                 {% endif %}

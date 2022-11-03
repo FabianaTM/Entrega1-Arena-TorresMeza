@@ -12,6 +12,9 @@ from app1.models import Mascota
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 def mi_template(request):
     cargar_archivo= open(r'.\app1\templates\app1\template.html' ,'r')
 
@@ -24,6 +27,7 @@ def mi_template(request):
 
     return HttpResponse(template_renderizado)
 
+@login_required
 def crear_mascota(request):
     if request.method == 'POST':
         formulario = MascotaFormulario(request.POST)
@@ -101,13 +105,13 @@ class CrearMascota(CreateView):
     template_name= 'app1/crear_mascota_cbv.html'
     fields = ['nombre','tipo','edad']
 
-class EditarMascota(UpdateView):
+class EditarMascota(LoginRequiredMixin ,UpdateView):
     model= Mascota
     success_url = '/ver_mascota/'
     template_name= 'app1/editar_mascota_cbv.html'
     fields = ['nombre','tipo','edad']
 
-class EliminarMascota(DeleteView):
+class EliminarMascota(LoginRequiredMixin,DeleteView):
     model= Mascota
     success_url = '/ver_mascota/'
     template_name= 'app1/eliminar_mascota_cbv.html'
