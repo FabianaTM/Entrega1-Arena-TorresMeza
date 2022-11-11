@@ -1,0 +1,17 @@
+{% extends 'app1/base.html' %}
+
+{%block title_pagina %}
+<title>Mascota</title>
+{% endblock title_pagina %}
+
+
+{% block contenido %}
+<p>
+    <li>Nombre:{{mascota.nombre}}</li>
+    <li>Tipo:{{mascota.tipo}}</li>
+    <li>Edad:{{mascota.edad}}</li>
+    <li>Publicación:{{mascota.fecha_publicacion}}</li>
+    <li>Descripción:{{mascota.descripcion | safe}}</li>
+</p>
+
+{% endblock contenido %}
